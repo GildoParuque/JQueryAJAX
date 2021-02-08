@@ -1,0 +1,48 @@
+﻿@model IEnumerable<JQueryAJAX.Models.TransationModel>
+<p>
+    <a onclick="ShowInPopup('@Url.Action("AddOrEdit","Transaction",null, Context.Request.Scheme)', 'New Transaction')" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeneficiaryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    <a onclick="ShowInPopup('@Url.Action("AddOrEdit","Transaction",new {id =item.TransitionId }, Context.Request.Scheme)', 'Update Transaction')" class="btn btn-info">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@item.TransitionId" onsubmit="return JqueryAjaxDelete(this);" class="d-inline">
+                        <input type="submit" value="Delete" class="btn btn-danger"/>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
